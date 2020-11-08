@@ -1,9 +1,8 @@
-package com.pos.transValidator.com.pos.transValidator.bean;
+package com.pos.transCore.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

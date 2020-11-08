@@ -1,15 +1,11 @@
 package com.pos.transValidator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pos.transValidator.com.pos.transValidator.ValidationManager;
-import com.pos.transValidator.com.pos.transValidator.bean.Transaction;
+import com.pos.transCore.validation.ValidationManager;
+import com.pos.transCore.bean.Transaction;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.Set;
 

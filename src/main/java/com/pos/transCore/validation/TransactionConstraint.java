@@ -1,4 +1,4 @@
-package com.pos.transValidator.com.pos.transValidator.validation;
+package com.pos.transCore.validation;
 
 
 import javax.validation.Constraint;

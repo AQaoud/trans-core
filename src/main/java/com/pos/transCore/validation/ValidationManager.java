@@ -1,10 +1,9 @@
-package com.pos.transValidator.com.pos.transValidator;
+package com.pos.transCore.validation;
 
-import com.pos.transValidator.com.pos.transValidator.bean.Transaction;
+import com.pos.transCore.bean.Transaction;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.util.Set;
 

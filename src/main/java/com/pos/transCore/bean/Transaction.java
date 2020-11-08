@@ -1,6 +1,6 @@
-package com.pos.transValidator.com.pos.transValidator.bean;
+package com.pos.transCore.bean;
 
-import com.pos.transValidator.com.pos.transValidator.validation.TransactionConstraint;
+import com.pos.transCore.validation.TransactionConstraint;
 import lombok.Data;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package com.pos.transValidator.com.pos.transValidator.utils;
+package com.pos.transCore.utils;
 
 public class Utilities {
 
@@ -13,7 +13,7 @@ public class Utilities {
      * @param eps
      * @return
      */
-    public static boolean almostEqual(double a, double b, double eps) {
+    public static boolean equal(double a, double b, double eps) {
         return Math.abs(a - b) < eps;
     }
 

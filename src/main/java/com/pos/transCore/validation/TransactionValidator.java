@@ -1,9 +1,9 @@
-package com.pos.transValidator.com.pos.transValidator.validation;
+package com.pos.transCore.validation;
 
-import com.pos.transValidator.com.pos.transValidator.bean.Itemization;
-import com.pos.transValidator.com.pos.transValidator.bean.Tax;
-import com.pos.transValidator.com.pos.transValidator.bean.Transaction;
-import com.pos.transValidator.com.pos.transValidator.utils.Utilities;
+import com.pos.transCore.bean.Tax;
+import com.pos.transCore.bean.Transaction;
+import com.pos.transCore.utils.Utilities;
+import com.pos.transCore.bean.Itemization;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -26,7 +26,7 @@ public class TransactionValidator implements
     }
 
     private boolean isValid(Itemization itemization) {
-        return Utilities.almostEqual(itemization.getTotal_money().getAmount()
+        return Utilities.equal(itemization.getTotal_money().getAmount()
                 , itemization.getNet_sales_money().getAmount()
                         + getItemTaxesTotal(itemization.getTaxes()), 0.0001); // TODO move to constructor
     }

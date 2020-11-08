@@ -3,6 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
+plugins {
+    id("maven-publish")
+}
 
 group = 'com.pos'
 version = '0.0.1-RELEASE'
@@ -19,6 +22,9 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
 
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.6.Final'
     compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '6.1.6.Final'

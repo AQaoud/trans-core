@@ -1,4 +1,4 @@
-package com.pos.transValidator.com.pos.transValidator.bean;
+package com.pos.transCore.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

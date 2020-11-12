@@ -1,13 +1,15 @@
 package com.pos.transValidator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pos.transCore.validation.ValidationManager;
-import com.pos.transCore.bean.Transaction;
+import com.pos.transcore.bean.*;
+import com.pos.transcore.validation.ValidationManager;
+import org.apache.commons.lang3.RandomUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import java.io.IOException;
-import java.util.Set;
+import javax.validation.ValidationException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 class TransValidatorApplicationTests {
 
@@ -16,146 +18,57 @@ class TransValidatorApplicationTests {
     }
 
     @Test
-    public void test_validation() throws IOException {
-        String json = "{\n" +
-				"    \"_id\" : \"589c493e5f2687111bb6d800\",\n" +
-                "    \"business_id\" : \"3f522ee8-7e69-4d78-aeb5-5278aaf21558\",\n" +
-                "    \"location_id\" : \"96e9975b-b1bf-47ee-aeaf-63518022e95e\",\n" +
-                "    \"transaction_id\" : \"37a5f57a-48bc-483d-91b7-88c8b1b9509c\",\n" +
-                "    \"receipt_id\" : \"Cj9uohMQNVflSq7taYtVRk\",\n" +
-                "    \"serial_number\" : \"C1-498\",\n" +
-                "    \"dining_option\" : \"In-House\",\n" +
-                "    \"creation_time\" : \"2017-02-09T10:49:34.000Z\",\n" +
-                "    \"discount_money\" : {\n" +
-                "        \"amount\" : 0,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"additive_tax_money\" : {\n" +
-                "        \"amount\" : 0,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"inclusive_tax_money\" : {\n" +
-                "        \"amount\" : 483,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"refunded_money\" : {\n" +
-                "        \"amount\" : 0,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"tax_money\" : {\n" +
-                "        \"amount\" : 483,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"tip_money\" : {\n" +
-                "        \"amount\" : 0,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"total_collected_money\" : {\n" +
-                "        \"amount\" : 3500,\n" +
-                "        \"currency\" : \"JOD\"\n" +
-                "    },\n" +
-                "    \"creator\" : {\n" +
-                "        \"id\" : \"00000000-0000-0000-0000-000000000000\",\n" +
-                "        \"name\" : \"John Doe\",\n" +
-                "        \"email\" : \"anonymous@example.com\"\n" +
-                "    },\n" +
-                "    \"tender\" : {\n" +
-                "        \"type\" : \"CASH\",\n" +
-                "        \"name\" : \"CASH\",\n" +
-                "        \"total_money\" : {\n" +
-                "            \"amount\" : 3500,\n" +
-                "            \"currency\" : \"JOD\"\n" +
-                "        }\n" +
-                "    },\n" +
-                "    \"taxes\" : [ \n" +
-                "        {\n" +
-                "            \"id\" : \"cfc92a12-f847-4942-b6ec-1454d194c9ba\",\n" +
-                "            \"name\" : \"Sales Tax\",\n" +
-                "            \"rate\" : 0.16,\n" +
-                "            \"inclusion_type\" : \"INCLUSIVE\",\n" +
-                "            \"is_custom_amount\" : true,\n" +
-                "            \"applied_money\" : {\n" +
-                "                \"amount\" : 483,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            }\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"itemization\" : [ \n" +
-                "        {\n" +
-                "            \"id\" : \"788cb9cb-106f-4d32-ac48-df9e8433ff50\",\n" +
-                "            \"name\" : \"Boneless Chicken Wings\",\n" +
-                "            \"quantity\" : 1,\n" +
-                "            \"total_money\" : {\n" +
-                "                \"amount\" : 3500,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            },\n" +
-                "            \"single_quantity_money\" : {\n" +
-                "                \"amount\" : 3500,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            },\n" +
-                "            \"gross_sales_money\" : {\n" +
-                "                \"amount\" : 3017,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            },\n" +
-                "            \"discount_money\" : {\n" +
-                "                \"amount\" : 0,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            },\n" +
-                "            \"net_sales_money\" : {\n" +
-                "                \"amount\" : -3017,\n" +
-                "                \"currency\" : \"JOD\"\n" +
-                "            },\n" +
-                "            \"category\" : {\n" +
-                "                \"id\" : \"a9895c94-15cc-4db1-bbad-fe62d218c931\",\n" +
-                "                \"name\" : \"Appetizers\"\n" +
-                "            },\n" +
-                "            \"variation\" : {\n" +
-                "                \"id\" : \"37b64192-6b0f-479d-aeee-3c382a0671b9\",\n" +
-                "                \"name\" : \"Plate\",\n" +
-                "                \"pricing_type\" : \"FIXED\",\n" +
-                "                \"price_money\" : {\n" +
-                "                    \"amount\" : 3500,\n" +
-                "                    \"currency\" : \"JOD\"\n" +
-                "                }\n" +
-                "            },\n" +
-                "            \"taxes\" : [ \n" +
-                "                {\n" +
-                "                    \"id\" : \"cfc92a12-f847-4942-b6ec-1454d194c9ba\",\n" +
-                "                    \"name\" : \"Sales Tax\",\n" +
-                "                    \"rate\" : 0.16,\n" +
-                "                    \"inclusion_type\" : \"INCLUSIVE\",\n" +
-                "                    \"is_custom_amount\" : true,\n" +
-                "                    \"applied_money\" : {\n" +
-                "                        \"amount\" : 483,\n" +
-                "                        \"currency\" : \"JOD\"\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            ],\n" +
-                "            \"discounts\" : [],\n" +
-                "            \"modifiers\" : [ \n" +
-                "                {\n" +
-                "                    \"id\" : \"7424ae3d-36bc-4c0c-b790-310614905aed\",\n" +
-                "                    \"name\" : \"6 Pieces\",\n" +
-                "                    \"quantity\" : 1,\n" +
-                "                    \"applied_money\" : {\n" +
-                "                        \"amount\" : 0,\n" +
-                "                        \"currency\" : \"JOD\"\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            ]\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-        ObjectMapper mapper = new ObjectMapper();
-        Transaction trans = mapper.readValue(json, Transaction.class);
-        Set<ConstraintViolation<Transaction>> constraintViolations = ValidationManager.validate(trans);
-        if (!constraintViolations.isEmpty()) {
-            constraintViolations.stream().forEach(v ->
-                    System.out.println(v)
+    public void test_validation_exception_en_locale() {
+        Transaction t = prepareTrans(false);
+        ValidationException exc = Assertions.assertThrows(ValidationException.class, () -> ValidationManager.validate(t, null));
+        Assertions.assertTrue(exc.getMessage().contains("Invalid"));
+    }
 
-
-            );
+    private Transaction prepareTrans(boolean valid) {
+        Transaction t = new Transaction();
+        t.setId(String.valueOf(RandomUtils.nextInt()));
+        Itemization itemization = new Itemization();
+        TotalMoney totalMoney = new TotalMoney();
+        totalMoney.setAmount(2.00);
+        totalMoney.setCurrency("JOD");
+        itemization.setTotalMoney(totalMoney);
+        NetSalesMoney netSalesMoney = new NetSalesMoney();
+        netSalesMoney.setAmount(1.0);
+        netSalesMoney.setCurrency("JOD");
+        itemization.setNetSalesMoney(netSalesMoney);
+        List<Tax> taxes = new ArrayList<>();
+        Tax tax =  new Tax();
+        AppliedMoney appliedMoney = new AppliedMoney();
+        if (valid) {
+            appliedMoney.setAmount(1.0);
+        } else {
+            appliedMoney.setAmount(1.5);
         }
+
+        appliedMoney.setCurrency("JOD");
+        tax.setAppliedMoney(appliedMoney);
+        taxes.add(tax);
+        itemization.setTaxes(taxes);
+        List<Itemization> itemizations = new ArrayList<>();
+        itemizations.add(itemization);
+        t.setItemization(itemizations);
+        return t;
+    }
+
+    @Test
+    public void test_validation_exception_ar_locale() {
+        Transaction t = prepareTrans(false);
+        ValidationException exc = Assertions.assertThrows(ValidationException.class, () -> ValidationManager.validate(t, new Locale("ar")));
+        Assertions.assertTrue(exc.getMessage().contains("عملية غير مقبولة"));
+
+
+
+    }
+
+    @Test
+    public void test_valid_transaction() {
+        Transaction t = prepareTrans(true);
+        Assertions.assertDoesNotThrow(() -> ValidationManager.validate(t, new Locale("ar")),"Test failed due to validation exception");
     }
 
 

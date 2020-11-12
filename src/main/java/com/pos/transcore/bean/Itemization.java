@@ -1,4 +1,4 @@
-package com.pos.transCore.bean;
+package com.pos.transcore.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +12,16 @@ import java.util.List;
 @Data
 @Setter
 @NoArgsConstructor
-public class Itemization{
+public class Itemization {
     private String id;
     private String name;
     private int quantity;
-    private TotalMoney total_money;
-    private SingleQuantityMoney single_quantity_money;
-    private GrossSalesMoney gross_sales_money;
-    private DiscountMoney discount_money;
+    private TotalMoney totalMoney;
+    private SingleQuantityMoney singleQuantityMoney;
+    private GrossSalesMoney grossSalesMoney;
+    private DiscountMoney discountMoney;
     @NotNull
-    private NetSalesMoney net_sales_money;
+    private NetSalesMoney netSalesMoney;
     private Category category;
     private Variation variation;
     private List<Tax> taxes;

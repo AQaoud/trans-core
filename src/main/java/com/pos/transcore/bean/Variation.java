@@ -1,4 +1,4 @@
-package com.pos.transCore.bean;
+package com.pos.transcore.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +7,9 @@ import lombok.Setter;
 @Data
 @Setter
 @NoArgsConstructor
-public class Modifier{
+public class Variation {
     private String id;
     private String name;
-    private int quantity;
-    private AppliedMoney applied_money;
+    private String pricingType;
+    private PriceMoney priceMoney;
 }

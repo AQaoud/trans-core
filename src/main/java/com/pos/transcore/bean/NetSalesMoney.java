@@ -1,4 +1,4 @@
-package com.pos.transCore.bean;
+package com.pos.transcore.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Setter
 @NoArgsConstructor
 @Valid
-public class NetSalesMoney{
+public class NetSalesMoney {
     @PositiveOrZero
     private double amount;
     @NotNull
